@@ -20,12 +20,13 @@ def main():
 	#Training part
 	iter = (ut.json_reader("train.json"))
 	for i in range(TRAINSIZE):
+		# print(i)
 	# for i in range(1):
 		element = next(iter)
 		label_count[int(element["stars"])-1]+=1
 		# print((remove_duplicates((element["text"]).split())))
-		# for x in remove_duplicates((element["text"]).split()):
-		for x in remove_duplicates(ut.getStemmedDocuments(element["text"])):
+		for x in remove_duplicates((element["text"]).split()):
+		# for x in remove_duplicates(ut.getStemmedDocuments(element["text"])):
 			word = x.strip(string.punctuation)
 			# print(word)
 			if word=="":
@@ -51,14 +52,15 @@ def main():
 	#TESTING
 	iter2 = (ut.json_reader("test.json"))
 	for i in range(TESTSIZE):
+		# print(i)
 		test_element = next(iter2)
 		actual_value.append(int(test_element["stars"]))
 		# test = "Stopped here today to give it a try and must admit the food was excellent. I ordered the vegetarian Soyrizo (fake sausage) burrito and fell in love. It was well worth the $6. It's not like the big chain restaurants where they serve you a massive sloppy burrito. It was the perfect size and easily handled. \nIt's small and quaint, with some seating outside in under a canopy. The owners were a lovely couple, passionate about their food. \nExcellent."
 		# test = "Fast, easy, helpful. In and out quickly and got the medicine I needed. Smart staff who was kind and helpful. Clean facility. No complaints from me"	
 		# test = "Service good, we had hummas, gyros, spiced date crumble.... all real good... need to try the flamming cheese next time!...  messed up on a few tables bill.. including ours but got it fixed.  I liked it. . .  my guest was on the fence."
 		test = test_element["text"]
-		# test_list = ((test).split())
-		test_list = (ut.getStemmedDocuments(element["text"]))
+		test_list = ((test).split())
+		# test_list = (ut.getStemmedDocuments(element["text"]))
 		# print(test_list)
 		results = []
 		for i in range(5):
