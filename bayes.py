@@ -3,6 +3,7 @@ import numpy as np
 import sys
 import string
 import math
+import random
 
 TESTSIZE = 133718
 TRAINSIZE = 534872
@@ -64,11 +65,14 @@ def main():
 	
 	actual_value = []
 	predicted_value = []
+	random_prediction = []
 ##############################################################################
 	#TESTING
-	iter2 = (ut.json_reader("train.json"))
-	for i in range(TRAINSIZE):
+	iter2 = (ut.json_reader("test.json"))
+	for i in range(TESTSIZE):
 		# print(i)
+		#Random number between 1-5
+		random_prediction.append(random.randint(1,6))
 		test_element = next(iter2)
 		actual_value.append(int(test_element["stars"]))
 		# test = "Stopped here today to give it a try and must admit the food was excellent. I ordered the vegetarian Soyrizo (fake sausage) burrito and fell in love. It was well worth the $6. It's not like the big chain restaurants where they serve you a massive sloppy burrito. It was the perfect size and easily handled. \nIt's small and quaint, with some seating outside in under a canopy. The owners were a lovely couple, passionate about their food. \nExcellent."
@@ -108,20 +112,40 @@ def main():
 ##############################################################################
 
 	# print(len(predicted_value))
+
+	major = list(label_count).index(max(label_count))+1
 	correct=0
+	correct_random=0
+	correct_major=0;
+	confusion =  np.zeros((5,5))
+
 	for i in range(len(predicted_value)):
 		# print(predicted_value[i])
 		if(predicted_value[i]==actual_value[i]):
 			correct+=1
+		if(random_prediction[i]==actual_value[i]):
+			correct_random+=1
+		if(major==actual_value[i]):
+			correct_major+=1
+		confusion[predicted_value[i]-1][actual_value[i]-1]+=1
+	
+	# print("Correct")
+	# print(correct)
+	# print(len(actual_value))
+	print("Accuracy using Naive Bayes: ", int(correct/len(actual_value)*100) , "%")
+	print("Accuracy using Random prediciton: ", int(correct_random/len(actual_value)*100) , "%")
+	print("Accuracy using Majority prediciton: ", int(correct_major/len(actual_value)*100) , "%")
+	print("Confusion Matrix: ")
+	print(confusion)
+	
 
-	print("Correct")
-	print(correct)
-	print(len(actual_value))
-	print("accuracy")
-	print(correct/len(actual_value))
 	# new_text = "It is important to by very pythonly while you are pythoning with python.All pythoners have pythoned poorly at least once."
 	# print(new_text)
 	# print(ut.getStemmedDocuments(new_text))
+
+
+
+
 
 if __name__ == '__main__':
     main()
