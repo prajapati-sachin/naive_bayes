@@ -61,7 +61,3 @@ def getStemmedDocuments(docs, return_tokens=True):
         return output_docs
     else:
         return _stem(docs, p_stemmer, en_stop, return_tokens)
-
-
-def printa():
-    print(3)

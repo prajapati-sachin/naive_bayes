@@ -8,26 +8,30 @@ TESTSIZE = 133718
 TRAINSIZE = 534872
 
 
-def remove_duplicates(x):
-	return list(dict.fromkeys(x))
+# def remove_duplicates(x):
+# 	return list(dict.fromkeys(x))
 
 def main():	
 	#Making Vocabulary for different labels out of training data
 	vocab_list = [{}, {}, {}, {}, {}]
+	vocabulary = {}
 	#Count of each label in training data
 	label_count = np.zeros(5)
+	label_word_count = np.zeros(5)
 ##############################################################################
 	#Training part
 	iter = (ut.json_reader("train.json"))
 	for i in range(TRAINSIZE):
 		# print(i)
-	# for i in range(1):
+		# for i in range(1):
 		element = next(iter)
 		label_count[int(element["stars"])-1]+=1
 		# print((remove_duplicates((element["text"]).split())))
-		for x in remove_duplicates((element["text"]).split()):
+		label_word_count[int(element["stars"])-1]+= len((element["text"]).split())
+		for x in ((element["text"]).split()):
 		# for x in remove_duplicates(ut.getStemmedDocuments(element["text"])):
 			word = x.strip(string.punctuation)
+			# word = x
 			# print(word)
 			if word=="":
 				continue
@@ -35,7 +39,19 @@ def main():
 				(vocab_list[int(element["stars"])-1])[word]+=1
 			else:
 				(vocab_list[int(element["stars"])-1])[word]=1
+	
+			vocabulary[word]=1
+
+
+	# for x in vocabulary:
+	# 	for i in range(5):
+	# 		if x in vocab_list[i]:
+
+
+
 ##############################################################################
+
+
 
 	# print(len(vocab))
 	# count=0;
@@ -50,8 +66,8 @@ def main():
 	predicted_value = []
 ##############################################################################
 	#TESTING
-	iter2 = (ut.json_reader("test.json"))
-	for i in range(TESTSIZE):
+	iter2 = (ut.json_reader("train.json"))
+	for i in range(TRAINSIZE):
 		# print(i)
 		test_element = next(iter2)
 		actual_value.append(int(test_element["stars"]))
@@ -71,6 +87,7 @@ def main():
 			rating=i+1
 			for x in test_list:
 				word = x.strip(string.punctuation)
+				# word = x
 				# print(word)
 				if word == "":
 					continue
@@ -78,11 +95,11 @@ def main():
 					# print(word)
 					# print(((vocab_list[i])[word]))
 					# print(label_count[i])
-					probability = (((vocab_list[i])[word])+1)/(label_count[i]+2)
+					probability = (((vocab_list[i])[word])+1)/(label_word_count[i]+len(vocabulary))
 					logr+=math.log(probability)
 				else:
 					# print("not")
-					logr+=math.log(1/(label_count[i]+2))
+					logr+=math.log(1/(label_word_count[i]+len(vocabulary)))
 			results.append(logr+(math.log(py)))
 			# print("------------------------------------------")
 		
