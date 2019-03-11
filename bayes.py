@@ -12,9 +12,6 @@ TRAINSIZE = 534872
 
 # # def remove_duplicates(x):
 # # 	return list(dict.fromkeys(x))
-def joiner(T):
-	# return T[0]+T[1]
-	return 2
 
 def main():	
 	# test = "Stopped here today to give it a try and must admit the food was excellent"

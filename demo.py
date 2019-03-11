@@ -1,10 +1,13 @@
-import nltk
-from nltk.tokenize import word_tokenize
+import numpy as np
 
-text = "to be or not to be"
-tokens = nltk.word_tokenize(text)
-# print(type(tokens))
-# print(type(text.split()))
-bigrm = nltk.bigrams(tokens)
-# print(list(bigrm))
-print(*map(' '.join, bigrm), sep=', ')
+
+list1 = [[  1.79380000e+04   ,2.50900000e+03   ,9.49000000e+02   ,3.54000000e+02 , 2.12000000e+02],
+         [  3.30000000e+01   ,3.45800000e+03   ,3.00000000e+00   ,0.00000000e+00 , 2.00000000e+00],
+         [  1.69000000e+02   ,2.40000000e+02   ,6.69700000e+03   ,9.00000000e+00 , 7.00000000e+00],
+         [  1.43700000e+03   ,3.46400000e+03   ,4.85300000e+03   ,2.37100000e+04 , 1.45700000e+03],
+         [  5.92000000e+02   ,1.16700000e+03   ,2.02900000e+03   ,5.28500000e+03 , 5.71440000e+04]]
+
+
+npa = np.array(list1)
+
+print(npa.sum())
