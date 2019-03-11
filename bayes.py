@@ -4,15 +4,23 @@ import sys
 import string
 import math
 import random
+import nltk
 
 TESTSIZE = 133718
 TRAINSIZE = 534872
 
 
-# def remove_duplicates(x):
-# 	return list(dict.fromkeys(x))
+# # def remove_duplicates(x):
+# # 	return list(dict.fromkeys(x))
+def joiner(T):
+	# return T[0]+T[1]
+	return 2
 
 def main():	
+	# test = "Stopped here today to give it a try and must admit the food was excellent"
+	# bigram = nltk.bigrams(test.split())
+	# print(list(map(''.join, bigram)))
+
 	#Making Vocabulary for different labels out of training data
 	vocab_list = [{}, {}, {}, {}, {}]
 	vocabulary = {}
@@ -21,8 +29,8 @@ def main():
 	label_word_count = np.zeros(5)
 ##############################################################################
 	#Training part
-	iter = (ut.json_reader("train.json"))
-	for i in range(TRAINSIZE):
+	iter = (ut.json_reader("test.json"))
+	for i in range(TESTSIZE):
 		if (i%1000)==0:
 			print("Training: ", i/1000)
 		# for i in range(1):
@@ -30,10 +38,14 @@ def main():
 		label_count[int(element["stars"])-1]+=1
 		# print((remove_duplicates((element["text"]).split())))
 		label_word_count[int(element["stars"])-1]+= len((element["text"]).split())
-		# Switch these lines for stemming 
+		# Switch these lines for stemming
+		stemmed = ut.getStemmedDocuments(element["text"]) 
+		bigram = nltk.bigrams(stemmed)
+		bigramlist = list(map(''.join, bigram))
+		stemmed.extend(bigramlist)
+		# print(stemmed)
+		for x in (stemmed):
 		# for x in ((element["text"]).split()):
-		# stemmed = ut.getStemmedDocuments(element["text"])
-		for x in (ut.getStemmedDocuments(element["text"])):
 			word = x.strip(string.punctuation)
 			# word = x
 			# print(word)
@@ -45,13 +57,6 @@ def main():
 				(vocab_list[int(element["stars"])-1])[word]=1
 	
 			vocabulary[word]=1
-
-
-	# for x in vocabulary:
-	# 	for i in range(5):
-	# 		if x in vocab_list[i]:
-
-
 
 ##############################################################################
 
@@ -86,6 +91,9 @@ def main():
 		test = test_element["text"]
 		# test_list = ((test).split())
 		test_list = (ut.getStemmedDocuments(test_element["text"]))
+		bigram = nltk.bigrams(test_list)
+		bigramlist = list(map(''.join, bigram))
+		test_list.extend(bigramlist)
 		# print(test_list)
 		results = []
 		for i in range(5):
@@ -148,9 +156,7 @@ def main():
 	# print(new_text)
 	# print(ut.getStemmedDocuments(new_text))
 
-
-
-
+	
 
 if __name__ == '__main__':
     main()
