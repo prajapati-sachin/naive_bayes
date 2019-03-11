@@ -23,14 +23,17 @@ def main():
 	#Training part
 	iter = (ut.json_reader("train.json"))
 	for i in range(TRAINSIZE):
-		# print(i)
+		if (i%1000)==0:
+			print("Training: ", i/1000)
 		# for i in range(1):
 		element = next(iter)
 		label_count[int(element["stars"])-1]+=1
 		# print((remove_duplicates((element["text"]).split())))
 		label_word_count[int(element["stars"])-1]+= len((element["text"]).split())
-		for x in ((element["text"]).split()):
-		# for x in remove_duplicates(ut.getStemmedDocuments(element["text"])):
+		# Switch these lines for stemming 
+		# for x in ((element["text"]).split()):
+		# stemmed = ut.getStemmedDocuments(element["text"])
+		for x in (ut.getStemmedDocuments(element["text"])):
 			word = x.strip(string.punctuation)
 			# word = x
 			# print(word)
@@ -70,6 +73,8 @@ def main():
 	#TESTING
 	iter2 = (ut.json_reader("test.json"))
 	for i in range(TESTSIZE):
+		if (i%1000)==0:
+			print("Testing: ", i/1000)
 		# print(i)
 		#Random number between 1-5
 		random_prediction.append(random.randint(1,6))
@@ -79,8 +84,8 @@ def main():
 		# test = "Fast, easy, helpful. In and out quickly and got the medicine I needed. Smart staff who was kind and helpful. Clean facility. No complaints from me"	
 		# test = "Service good, we had hummas, gyros, spiced date crumble.... all real good... need to try the flamming cheese next time!...  messed up on a few tables bill.. including ours but got it fixed.  I liked it. . .  my guest was on the fence."
 		test = test_element["text"]
-		test_list = ((test).split())
-		# test_list = (ut.getStemmedDocuments(element["text"]))
+		# test_list = ((test).split())
+		test_list = (ut.getStemmedDocuments(test_element["text"]))
 		# print(test_list)
 		results = []
 		for i in range(5):
