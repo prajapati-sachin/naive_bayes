@@ -26,8 +26,8 @@ def main():
 	label_word_count = np.zeros(5)
 ##############################################################################
 	#Training part
-	iter = (ut.json_reader("test.json"))
-	for i in range(TESTSIZE):
+	iter = (ut.json_reader("train.json"))
+	for i in range(TRAINSIZE):
 		if (i%1000)==0:
 			print("Training: ", i/1000)
 		# for i in range(1):
