@@ -5,6 +5,8 @@ import string
 import math
 import random
 import nltk
+# import sklearn
+from sklearn.metrics import f1_score, confusion_matrix 
 
 TESTSIZE = 133718
 TRAINSIZE = 534872
@@ -128,6 +130,7 @@ def main():
 	correct_random=0
 	correct_major=0;
 	confusion =  np.zeros((5,5))
+	calc_f1_score = np.zeros(5)
 
 	for i in range(len(predicted_value)):
 		# print(predicted_value[i])
@@ -139,6 +142,15 @@ def main():
 			correct_major+=1
 		confusion[predicted_value[i]-1][actual_value[i]-1]+=1
 	
+	row_sum = np.sum(confusion, axis=1)
+	column_sum = np.sum(confusion, axis=0)
+	for i in range(5):
+		precision = confusion[i][i]/row_sum[i]
+		recall = confusion[i][i]/column_sum[i]
+		calc_f1_score[i] = 2*((precision*recall)/(precision+recall))
+	
+
+
 	# print("Correct")
 	# print(correct)
 	# print(len(actual_value))
@@ -147,7 +159,18 @@ def main():
 	print("Accuracy using Majority prediciton: ", int(correct_major/len(actual_value)*100) , "%")
 	print("Confusion Matrix: ")
 	print(confusion)
-	
+	print("F1 Scores:")
+	for i in range(5):
+		print("Label", i+1,": " ,calc_f1_score[i])
+
+	new_confu = confusion_matrix(actual_value, predicted_value)
+	new_f_score = f1_score(actual_value, predicted_value, average=None)
+	print("New Confusion")
+	print(new_confu)
+	print("New F1_score")
+	print(new_f_score)
+	print(np.mean(new_f_score))
+
 
 	# new_text = "It is important to by very pythonly while you are pythoning with python.All pythoners have pythoned poorly at least once."
 	# print(new_text)
