@@ -9,8 +9,8 @@ import nltk
 from sklearn.metrics import f1_score, confusion_matrix 
 
 TESTSIZE = 133718
-TRAINSIZE = 534872
-
+TRAINSIZE =  534872
+TRAINFULLSIZE = 5000000
 
 # # def remove_duplicates(x):
 # # 	return list(dict.fromkeys(x))
@@ -28,8 +28,8 @@ def main():
 	label_word_count = np.zeros(5)
 ##############################################################################
 	#Training part
-	iter = (ut.json_reader("train.json"))
-	for i in range(TRAINSIZE):
+	iter = (ut.json_reader("train_full.json"))
+	for i in range(TRAINFULLSIZE):
 		if (i%1000)==0:
 			print("Training: ", i/1000)
 		# for i in range(1):
