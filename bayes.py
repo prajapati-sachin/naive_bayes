@@ -5,6 +5,7 @@ import string
 import math
 import random
 import nltk
+import time
 # import sklearn
 from sklearn.metrics import f1_score, confusion_matrix 
 
@@ -23,13 +24,18 @@ def main():
 	#Making Vocabulary for different labels out of training data
 	vocab_list = [{}, {}, {}, {}, {}]
 	vocabulary = {}
+	vocab_list_bigrams = [{}, {}, {}, {}, {}]
+	vocabulary_bigrams = {}
 	#Count of each label in training data
 	label_count = np.zeros(5)
 	label_word_count = np.zeros(5)
+	label_bigram_count = np.zeros(5)
+
+	start1 = time.time()
 ##############################################################################
 	#Training part
 	iter = (ut.json_reader("train_full.json"))
-	for i in range(TRAINFULLSIZE):
+	for i in range(TRAINSIZE):
 		if (i%1000)==0:
 			print("Training: ", i/1000)
 		# for i in range(1):
@@ -41,7 +47,11 @@ def main():
 		stemmed = ut.getStemmedDocuments(element["text"]) 
 		bigram = nltk.bigrams(stemmed)
 		bigramlist = list(map(''.join, bigram))
-		stemmed.extend(bigramlist)
+		
+		label_word_count[int(element["stars"])-1]+= len(stemmed)
+		label_bigram_count[int(element["stars"])-1]+= len(bigramlist)
+		
+		# stemmed.extend(bigramlist)
 		# print(stemmed)
 		for x in (stemmed):
 		# for x in ((element["text"]).split()):
@@ -57,9 +67,24 @@ def main():
 	
 			vocabulary[word]=1
 
+		for x in (bigramlist):
+		# for x in ((element["text"]).split()):
+			word = x.strip(string.punctuation)
+			# word = x
+			# print(word)
+			if word=="":
+				continue
+			if word in vocab_list_bigrams[int(element["stars"]-1)]: 
+				(vocab_list_bigrams[int(element["stars"])-1])[word]+=1
+			else:
+				(vocab_list_bigrams[int(element["stars"])-1])[word]=1
+	
+			vocabulary_bigrams[word]=1
+
 ##############################################################################
 
-
+	end1 = time.time()
+	print("Training done, Time taken(mins)", int(end1-start1)/60)
 
 	# print(len(vocab))
 	# count=0;
@@ -73,6 +98,7 @@ def main():
 	actual_value = []
 	predicted_value = []
 	random_prediction = []
+	start2 = time.time()
 ##############################################################################
 	#TESTING
 	iter2 = (ut.json_reader("test.json"))
@@ -92,7 +118,7 @@ def main():
 		test_list = (ut.getStemmedDocuments(test_element["text"]))
 		bigram = nltk.bigrams(test_list)
 		bigramlist = list(map(''.join, bigram))
-		test_list.extend(bigramlist)
+		# test_list.extend(bigramlist)
 		# print(test_list)
 		results = []
 		for i in range(5):
@@ -116,6 +142,22 @@ def main():
 				else:
 					# print("not")
 					logr+=math.log(1/(label_word_count[i]+len(vocabulary)))
+
+			for x in bigramlist:
+				word = x.strip(string.punctuation)
+				# word = x
+				# print(word)
+				if word == "":
+					continue
+				if word in vocab_list_bigrams[i]:
+					# print(word)
+					# print(((vocab_list[i])[word]))
+					# print(label_count[i])
+					probability = (((vocab_list_bigrams[i])[word])+1)/(label_bigram_count[i]+len(vocabulary_bigrams))
+					logr+=math.log(probability)
+				else:
+					# print("not")
+					logr+=math.log(1/(label_bigram_count[i]+len(vocabulary_bigrams)))
 			results.append(logr+(math.log(py)))
 			# print("------------------------------------------")
 		
@@ -149,6 +191,8 @@ def main():
 		recall = confusion[i][i]/column_sum[i]
 		calc_f1_score[i] = 2*((precision*recall)/(precision+recall))
 	
+	end2 = time.time()
+	print("Testing done, Time taken(mins)", int(end2-start2)/60)
 
 
 	# print("Correct")
