@@ -1,0 +1,32 @@
+a)
+Running for Train V/s Test
+Training done, Time taken(mins) 1.1333333333333333
+Testing done, Time taken(mins) 1.5
+Accuracy using Naive Bayes:  60 %
+
+Running for Train V/s Train
+Training done, Time taken(mins) 1.1166666666666667
+Testing done, Time taken(mins) 6.466666666666667
+Accuracy using Naive Bayes:  66 %
+
+------------------------------------------
+b)
+
+Training done, Time taken(mins) 1.1666666666666667
+Testing done, Time taken(mins) 1.5833333333333333
+Accuracy using Naive Bayes:  60 %
+Accuracy using Random prediciton:  16 %
+Accuracy using Majority prediciton:  43 %
+------------------------------------------
+c)
+Training done, Time taken(mins) 1.1666666666666667
+Testing done, Time taken(mins) 1.5
+Accuracy using Naive Bayes:  60 %
+Confusion Matrix
+[[14862  3141  1129   613   424]
+ [ 2993  2787  3174  1454   430]
+ [ 1425  1335  4466  6292  1013]
+ [ 1099   501  1852 18494  7412]
+ [ 2915   223   402 14477 40805]]
+------------------------------------------
+d)

@@ -1,0 +1,65 @@
+--------------------Binary Classification(between 5 & 6)---------------------------------------------------
+1) svm1a.txt
+--------------------------------------------------------------------------------------------------------------
+2) svm1b.txt
+--------------------------------------------------------------------------------------------------------------
+3) svm1c.txt
+
+
+
+
+
+--------------------MultiClass Classification-----------------------------------------------------------------
+1)
+
+
+
+Total correct(train data):  1500
+Total no.:  1500
+Accuracy using Guassian Kernel(train data):  100.0
+Confusion Matrix for train data:
+[[157   0   0   0   0   0   0   0   0   0]
+ [  0 145   0   0   0   0   0   0   0   0]
+ [  0   0 148   0   0   0   0   0   0   0]
+ [  0   0   0 128   0   0   0   0   0   0]
+ [  0   0   0   0 154   0   0   0   0   0]
+ [  0   0   0   0   0 169   0   0   0   0]
+ [  0   0   0   0   0   0 141   0   0   0]
+ [  0   0   0   0   0   0   0 151   0   0]
+ [  0   0   0   0   0   0   0   0 136   0]
+ [  0   0   0   0   0   0   0   0   0 171]]
+
+--------------------------------------------------------------------------------------------------------------
+2)
+Input done, Time taken(sec) 9
+Training, Time taken using LIBSVM 216
+Accuracy using LIBSVM on multiclass(on test data):  97.23
+Accuracy using LIBSVM on multiclass(on training data):  99.92
+
+--------------------------------------------------------------------------------------------------------------
+3)
+
+
+--------------------------------------------------------------------------------------------------------------
+4)
+
+Cost used:  1e-05
+Accuracy using LIBSVM(on training-validation):  8.799999999999999
+Accuracy using LIBSVM(on test data):  10.0
+1
+Cost used:  0.001
+Accuracy using LIBSVM(on training-validation):  8.799999999999999
+Accuracy using LIBSVM(on test data):  10.0
+2
+Cost used:  1
+Accuracy using LIBSVM(on training-validation):  97.8
+Accuracy using LIBSVM(on test data):  99.71
+3
+Cost used:  5
+Accuracy using LIBSVM(on training-validation):  98.0
+Accuracy using LIBSVM(on test data):  99.8
+4
+Cost used:  10
+Accuracy using LIBSVM(on training-validation):  98.0
+Accuracy using LIBSVM(on test data):  99.8
+--------------------------------------------------------------------------------------------------------------

@@ -20,14 +20,14 @@ TRAINFULLSIZE = 5348720
 
 train = sys.argv[1]
 test = sys.argv[2]
-part = sys.argv[3]
+# part = sys.argv[3]
 
 
 # train = "train.json"
 # test = "test.json"
 
 
-def main():	
+def main(train, test):	
 	# test = "Stopped here today to give it a try and must admit the food was excellent"
 	# bigram = nltk.bigrams(test.split())
 	# print(list(map(''.join, bigram)))
@@ -56,8 +56,9 @@ def main():
 		# element = next(iter)
 		label_count[int(element["stars"])-1]+=1
 		# print((remove_duplicates((element["text"]).split())))
-		label_word_count[int(element["stars"])-1]+= len((element["text"]).split())
+		# label_word_count[int(element["stars"])-1]+= len((element["text"]).split())
 		# Switch these lines for stemming
+		# stemmed = (element["text"].split())
 		stemmed = ut.getStemmedDocuments(element["text"]) 
 		bigram = nltk.bigrams(stemmed)
 		bigramlist = list(map(''.join, bigram))
@@ -187,8 +188,8 @@ def main():
 	correct=0
 	correct_random=0
 	correct_major=0;
-	confusion =  np.zeros((5,5))
-	calc_f1_score = np.zeros(5)
+	# confusion =  np.zeros((5,5))
+	# calc_f1_score = np.zeros(5)
 
 	for i in range(len(predicted_value)):
 		# print(predicted_value[i])
@@ -198,14 +199,14 @@ def main():
 			correct_random+=1
 		if(major==actual_value[i]):
 			correct_major+=1
-		confusion[predicted_value[i]-1][actual_value[i]-1]+=1
+		# confusion[predicted_value[i]-1][actual_value[i]-1]+=1
 	
-	row_sum = np.sum(confusion, axis=1)
-	column_sum = np.sum(confusion, axis=0)
-	for i in range(5):
-		precision = confusion[i][i]/row_sum[i]
-		recall = confusion[i][i]/column_sum[i]
-		calc_f1_score[i] = 2*((precision*recall)/(precision+recall))
+	# row_sum = np.sum(confusion, axis=1)
+	# column_sum = np.sum(confusion, axis=0)
+	# for i in range(5):
+	# 	precision = confusion[i][i]/row_sum[i]
+	# 	recall = confusion[i][i]/column_sum[i]
+	# 	calc_f1_score[i] = 2*((precision*recall)/(precision+recall))
 	
 	end2 = time.time()
 	print("Testing done, Time taken(mins)", int(end2-start2)/60)
@@ -215,21 +216,16 @@ def main():
 	# print(correct)
 	# print(len(actual_value))
 	print("Accuracy using Naive Bayes: ", int(correct/len(actual_value)*100) , "%")
-	print("Accuracy using Random prediciton: ", int(correct_random/len(actual_value)*100) , "%")
-	print("Accuracy using Majority prediciton: ", int(correct_major/len(actual_value)*100) , "%")
-	print("Confusion Matrix: ")
-	print(confusion)
-	print("F1 Scores:")
-	for i in range(5):
-		print("Label", i+1,": " ,calc_f1_score[i])
+	# print("Accuracy using Random prediciton: ", int(correct_random/len(actual_value)*100) , "%")
+	# print("Accuracy using Majority prediciton: ", int(correct_major/len(actual_value)*100) , "%")
 
-	new_confu = confusion_matrix(actual_value, predicted_value)
-	new_f_score = f1_score(actual_value, predicted_value, average=None)
-	print("New Confusion")
-	print(new_confu)
-	print("New F1_score")
-	print(new_f_score)
-	print(np.mean(new_f_score))
+	# new_confu = confusion_matrix(actual_value, predicted_value)
+	# new_f_score = f1_score(actual_value, predicted_value, average=None)
+	# print("Confusion Matrix")
+	# print(new_confu)
+	# print("F1-score")
+	# print(new_f_score)
+	# print("Macro F1-score", np.mean(new_f_score))
 
 
 	# new_text = "It is important to by very pythonly while you are pythoning with python.All pythoners have pythoned poorly at least once."
@@ -239,4 +235,4 @@ def main():
 	
 
 if __name__ == '__main__':
-    main()
+    main(train, test)
