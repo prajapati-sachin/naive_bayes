@@ -30,3 +30,37 @@ Confusion Matrix
  [ 2915   223   402 14477 40805]]
 ------------------------------------------
 d)
+Training done, Time taken(mins) 13.866666666666667
+Testing done, Time taken(mins) 4.216666666666667
+Accuracy using Naive Bayes:  59 %
+------------------------------------------
+e/f)
+Training done, Time taken(mins) 14.966666666666667
+Testing done, Time taken(mins) 5.35
+Accuracy using Naive Bayes:  62 %
+Confusion Matrix
+[[16041  1794  1001   945   388]
+ [ 3693  1680  2547  2448   470]
+ [ 1685   550  3040  8113  1143]
+ [ 1007    94   806 18949  8502]
+ [ 1973    53   169 12306 44321]]
+F1-score
+[ 0.71984383  0.22386568  0.27518783  0.52549259  0.77998346]
+Macro F1-score 0.504874678915
+------------------------------------------
+g)
+Stemming + Bigrams(Train_full, Test):-
+Training done, Time taken(mins) 209.98333333333332
+Testing done, Time taken(mins) 7.266666666666667
+Accuracy using Naive Bayes:  70 %
+Accuracy using Random prediciton:  16 % 
+Accuracy using Majority prediciton:  43 %
+Confusion Matrix
+[[15900  2437  1152   454   226]
+ [ 2672  4369  2342  1186   269]
+ [ 1316   585  7327  4581   722]
+ [  879   198   636 21856  5789]
+ [ 1595    68   186 11824 45149]]
+F1_score
+[0.74768992 0.47245201 0.55986857 0.63113819 0.81366409]
+Macro f-scroe:  0.6449625580405202
