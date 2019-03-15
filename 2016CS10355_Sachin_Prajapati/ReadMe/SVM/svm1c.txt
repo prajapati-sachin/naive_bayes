@@ -1,5 +1,11 @@
 Input done, Time taken 2.632650852203369
 Accuracy using LIBSVM:  97.2972972972973
+rho = -1.624401
+b(using part a) = 1.62
+rho(for guassian) = -0.14
+b(using part b) = 0.14
+ 
+w = 
 [[  0.00000000e+00]
  [  0.00000000e+00]
  [  0.00000000e+00]
@@ -784,4 +790,4 @@ Accuracy using LIBSVM:  97.2972972972973
  [  0.00000000e+00]
  [  0.00000000e+00]
  [  0.00000000e+00]]
-[ 241.64200484]
+
